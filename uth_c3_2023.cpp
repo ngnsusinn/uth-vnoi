@@ -2,37 +2,14 @@
 
 using namespace std;
 
-int getnum(int x, int r) {
-    if (x % 5 >= r)
-        return x - (x % 5 - r);
-    else
-        return x - (x % 5 + 5 - r);
-}
-
 int main(){
-    int n, m;
+    long long n, m;
     cin >> n >> m;
-    int qn[5], qm[5];
-    for (int i = 0; i < 5; i++){
-        qn[i] = (n >= 5 ? (getnum(n, i) - 1)/5 + 1 : 1);
-        qm[i] = (m >= 5 ? (getnum(m, i) - 1)/5 + 1 : 1);
-    }
-    if (n < 5){
-        qn[0] = 0;
-        for (int i = n + 1; i < 5; i++){
-            qn[i] = 0;
-        }
-    }
-    if (m < 5){
-        qm[0] = 0;
-        for (int i = m + 1; i < 5; i++){
-            qm[i] = 0;
-        }
-    }
-    int p = qn[0]*qm[0];
-    for (int i = 1; i < 5; i++){
-        p += qn[i] * qm[5 - i];
-    }
-    cout << p;
+    long long a[5], b[5];
+    fill_n(a, 5, n/5);
+    fill_n(b, 5, m/5);
+    for (int i = 1; i <= n % 5; i++) a[i]++;
+    for (int i = 1; i <= m % 5; i++) b[i]++;
+    cout << a[0]*b[0] + a[1]*b[4] + a[2]*b[3] + a[3]*b[2] + a[4]*b[1];
     return 0;
 }
